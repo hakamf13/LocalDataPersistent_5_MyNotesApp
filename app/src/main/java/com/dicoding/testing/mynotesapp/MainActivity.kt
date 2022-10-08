@@ -40,14 +40,14 @@ class MainActivity : AppCompatActivity() {
 
                 NoteAddUpdateActivity.RESULT_UPDATE -> {
                     val note = result.data?.getParcelableExtra<Note>(NoteAddUpdateActivity.EXTRA_NOTE) as Note
-                    val position = result.data?.getIntExtra(NoteAddUpdateActivity.EXTRA_POSITION, 0) as Int
+                    val position = result?.data?.getIntExtra(NoteAddUpdateActivity.EXTRA_POSITION, 0) as Int
                     adapter.updateItem(position, note)
                     binding.rvNotes.smoothScrollToPosition(position)
                     showSnackbarMessage("Item updated successfully")
                 }
 
                 NoteAddUpdateActivity.RESULT_DELETE -> {
-                    val position = result.data?.getIntExtra(NoteAddUpdateActivity.EXTRA_POSITION, 0) as Int
+                    val position = result?.data?.getIntExtra(NoteAddUpdateActivity.EXTRA_POSITION, 0) as Int
                     adapter.removeItem(position)
                     showSnackbarMessage("Item deleted successfully")
                 }
@@ -81,8 +81,20 @@ class MainActivity : AppCompatActivity() {
             resultLauncher.launch(intent)
         }
 
+        if (savedInstanceState == null) {
 //        proses ambil data
-        loadNotesAsync()
+            loadNotesAsync()
+        } else {
+            val list = savedInstanceState.getParcelableArrayList<Note>(EXTRA_STATE)
+            if (list != null) {
+                adapter.listNotes = list
+            }
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList(EXTRA_STATE, adapter.listNotes)
     }
 
     override fun onDestroy() {
@@ -97,7 +109,6 @@ class MainActivity : AppCompatActivity() {
     private fun loadNotesAsync() {
         lifecycleScope.launch {
             binding.progressBar.visibility = View.VISIBLE
-
             val noteHelper = NoteHelper.getInstance(applicationContext)
             noteHelper.open()
             val deferredNotes = async(Dispatchers.IO) {
@@ -114,5 +125,9 @@ class MainActivity : AppCompatActivity() {
             }
             noteHelper.close()
         }
+    }
+
+    companion object {
+        private const val EXTRA_STATE = "EXTRA_STATE"
     }
 }

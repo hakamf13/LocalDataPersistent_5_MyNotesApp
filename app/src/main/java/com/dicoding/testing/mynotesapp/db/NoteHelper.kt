@@ -34,7 +34,8 @@ class NoteHelper(context: Context) {
             null,
             null,
             null,
-            "$_ID ASC"
+            "$_ID ASC",
+            null
         )
     }
 
@@ -71,6 +72,7 @@ class NoteHelper(context: Context) {
         const val DATABASE_TABLE = "TABLE_NAME"
 
         private var INSTANCE: NoteHelper ?= null
+
         fun getInstance(context: Context): NoteHelper =
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: NoteHelper(context)
