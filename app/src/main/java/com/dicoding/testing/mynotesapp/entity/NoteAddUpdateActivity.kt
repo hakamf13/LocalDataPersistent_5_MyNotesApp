@@ -19,7 +19,7 @@ import java.util.*
 
 class NoteAddUpdateActivity : AppCompatActivity(), View.OnClickListener {
     private var isEdit = false
-    private var note: Note ?= null
+    private var note: Note? = null
     private var position: Int = 0
 
     private lateinit var noteHelper: NoteHelper
@@ -93,7 +93,7 @@ class NoteAddUpdateActivity : AppCompatActivity(), View.OnClickListener {
             values.put(DatabaseContract.NoteColumns.DESCRIPTION, description)
 
             if (isEdit) {
-                val result = noteHelper.update(note?.id.toString(), values).toLong()
+                val result = noteHelper.update(note?.id.toString(), values)
                 if (result > 0) {
                     setResult(RESULT_UPDATE, intent)
                     finish()
@@ -118,7 +118,7 @@ class NoteAddUpdateActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 //    Memanggil menu_form.xml
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         if (isEdit) {
             menuInflater.inflate(R.menu.menu_form, menu)
         }
@@ -161,7 +161,6 @@ class NoteAddUpdateActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         val alertDialogBuilder = AlertDialog.Builder(this)
-
         alertDialogBuilder.setTitle(dialogTitle)
         alertDialogBuilder
             .setMessage(dialogMessage)

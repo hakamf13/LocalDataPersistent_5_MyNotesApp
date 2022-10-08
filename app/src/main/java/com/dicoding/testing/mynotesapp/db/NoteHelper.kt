@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import com.dicoding.testing.mynotesapp.db.DatabaseContract.NoteColumns.Companion.TABLE_NAME
 import com.dicoding.testing.mynotesapp.db.DatabaseContract.NoteColumns.Companion._ID
 import java.sql.SQLException
 import kotlin.jvm.Throws
@@ -69,7 +70,7 @@ class NoteHelper(context: Context) {
     }
 
     companion object {
-        const val DATABASE_TABLE = "TABLE_NAME"
+        private const val DATABASE_TABLE = TABLE_NAME
 
         private var INSTANCE: NoteHelper ?= null
 

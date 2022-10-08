@@ -17,9 +17,9 @@ internal class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATA
     }
 
     companion object {
-        const val DATABASE_NAME = "dbnoteapp"
-        const val DATABASE_VERSION = 1
-        const val SQL_CREATE_TABLE_NOTE = "CREATE TABLE $TABLE_NAME" +
+        private const val DATABASE_NAME = "dbnoteapp"
+        private const val DATABASE_VERSION = 1
+        private const val SQL_CREATE_TABLE_NOTE = "CREATE TABLE $TABLE_NAME" +
                 "(${DatabaseContract.NoteColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "${DatabaseContract.NoteColumns.TITLE} TEXT NOT NULL," +
                 "${DatabaseContract.NoteColumns.DESCRIPTION} TEXT NOT NULL," +

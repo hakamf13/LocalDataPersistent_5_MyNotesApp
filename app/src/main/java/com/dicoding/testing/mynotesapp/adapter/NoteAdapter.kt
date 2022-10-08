@@ -47,7 +47,6 @@ class NoteAdapter(private val onItemClickCallback: OnItemClickCallback): Recycle
 
     inner class NoteViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val binding = ItemNoteBinding.bind(itemView)
-
         fun bind(note: Note) {
             binding.apply {
                 tvItemTitle.text = note.title
@@ -61,7 +60,7 @@ class NoteAdapter(private val onItemClickCallback: OnItemClickCallback): Recycle
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(selectedNote: Note?, position: Int)
+        fun onItemClicked(selectedNote: Note?, position: Int?)
     }
 
 }
